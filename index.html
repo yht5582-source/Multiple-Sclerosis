@@ -119,6 +119,9 @@ th{font-weight:500;color:var(--ink-2);font-size:12.5px;white-space:nowrap}
 .why .y i{color:var(--go)} .why .n i{color:var(--stop)}
 tr.hit td{background:var(--accent-soft)}
 tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:5px 8px;width:80px;font-family:var(--f-mono)}
+.verbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.verbar .seg button{font-size:14.5px;padding:6px 16px}
 .refs{padding-left:20px;margin:0;display:grid;gap:8px;font-size:13.8px}
 .refs a{color:var(--accent)}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
@@ -134,8 +137,8 @@ tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
   <header class="masthead">
     <div class="eyebrow">Multiple sclerosis · 2017 McDonald criteria</div>
     <h1>多發性硬化症診斷判定</h1>
-    <p class="sub">依 2017 McDonald 準則，由臨床發作次數、客觀病灶數、MRI 空間多發性 (DIS)、時間多發性 (DIT) 與腦脊髓液寡株帶 (OCB) 自動判定，輸出確診 MS、疑似 MS 或臨床孤立症候群 (CIS)。</p>
-    <div class="src"><span>2017 McDonald 準則</span><span>NMOSD 國際共識 2015</span><span>MOGAD 國際準則 2023</span></div>
+    <p class="sub">可切換 2017 或 2024 McDonald 準則，由臨床發作、MRI 病灶部位（空間多發性 DIS）、影像變化與腦脊髓液（時間多發性 DIT、寡株帶或 kFLC）及 2024 版的中央靜脈徵象與順磁性邊緣病灶自動判定，輸出確診 MS、疑似 MS、臨床孤立症候群 (CIS) 或放射學孤立症候群 (RIS)。</p>
+    <div class="src"><span>2017 McDonald 準則</span><span>2024 McDonald 準則</span><span>NMOSD 國際共識 2015</span><span>MOGAD 國際準則 2023</span></div>
     <nav class="tabs" role="tablist" aria-label="功能分頁">
       <button class="tab" role="tab" id="tab-dx" aria-controls="dx" data-t="dx"><b>1</b>診斷判定</button>
       <button class="tab" role="tab" id="tab-dd" aria-controls="dd" data-t="dd"><b>2</b>鑑別診斷與紅旗</button>
@@ -145,24 +148,30 @@ tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
 
   <!-- ============ 1. Diagnosis ============ -->
   <section class="pane" id="dx" role="tabpanel" aria-labelledby="tab-dx" hidden>
+    <div class="card verbar">
+      <div class="row"><span class="flabel">判定版本</span><div class="seg" id="ver"><button data-v="2017" aria-pressed="false">2017 McDonald</button><button data-v="2024" aria-pressed="false">2024 McDonald</button></div></div>
+      <span class="small muted" id="ver-note"></span>
+    </div>
     <div class="two">
       <div class="stack">
         <div class="card step">
           <div class="no">1</div>
           <div>
             <div class="row" style="justify-content:space-between"><h3>臨床病程與發作</h3><span class="sample" id="sample">示例個案</span></div>
+            <div class="q v24"><label class="flabel" for="age">年齡（≥ 50 歲需額外支持證據）</label><div class="row" style="gap:6px"><input type="number" id="age" min="1" max="100"><span class="small muted">歲</span></div></div>
             <div class="q"><span class="flabel">病程型態</span>
               <div class="seg" id="course"><button data-v="rel" aria-pressed="false">發作型</button><button data-v="prog" aria-pressed="false">發病即漸進惡化</button></div></div>
             <div id="rel-block">
               <div class="q"><span class="flabel">臨床發作次數（每次持續 ≥ 24 小時、無發燒或感染）</span>
                 <div class="seg" id="attacks"><button data-v="0" aria-pressed="false"><b>0</b> 次</button><button data-v="1" aria-pressed="false"><b>1</b> 次</button><button data-v="2" aria-pressed="false"><b>≥ 2</b> 次</button></div></div>
-              <div class="q" id="les-q"><span class="flabel">有客觀臨床證據（神經學檢查、視覺誘發電位或 MRI 與症狀相符）的病灶數</span>
+              <div class="q v17" id="les-q"><span class="flabel">有客觀臨床證據（神經學檢查、視覺誘發電位或 MRI 與症狀相符）的病灶數</span>
                 <div class="seg" id="lesions"><button data-v="1" aria-pressed="false"><b>1</b> 個</button><button data-v="2" aria-pressed="false"><b>≥ 2</b> 個</button></div></div>
-              <div class="q" id="hist-q"><label class="check"><input type="checkbox" id="hist"><span>有明確病史顯示先前一次發作侵犯<b>另一個</b> CNS 部位（可取代第二個客觀病灶）</span></label></div>
+              <div class="q v17" id="hist-q"><label class="check"><input type="checkbox" id="hist"><span>有明確病史顯示先前一次發作侵犯<b>另一個</b> CNS 部位（可取代第二個客觀病灶）</span></label></div>
               <div class="q" id="typ-q"><label class="check"><input type="checkbox" id="typical"><span>典型脫髓鞘發作（如單側視神經炎、腦幹或小腦症候群、部分脊髓炎）</span></label></div>
+              <p class="small muted v24" style="margin-top:6px">2024 版以客觀證據涉及的「部位數」判定，不再計算臨床病灶數；≥ 2 次臨床發作視為時間多發性。0 次代表無症狀的影像發現 (RIS)；症狀不典型或非特異時，請取消上方「典型脫髓鞘發作」。</p>
             </div>
             <div id="prog-block" hidden>
-              <div class="q"><label class="check"><input type="checkbox" id="prog1y"><span>與發作無關的失能進展 <b>≥ 1 年</b>（回溯或前瞻觀察）</span></label></div>
+              <div class="q"><label class="check"><input type="checkbox" id="prog1y"><span>與發作無關的失能進展 <b>≥ 1 年（12 個月）</b>（回溯或前瞻觀察）</span></label></div>
             </div>
           </div>
         </div>
@@ -171,22 +180,25 @@ tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
           <div class="no">2</div>
           <div>
             <h3>MRI 病灶位置 <span class="pill info">空間多發性 DIS</span></h3>
-            <p class="small muted">勾選有 ≥ 1 個 T2 高訊號病灶的部位。有症狀與無症狀病灶都可計算；視神經不算在 2017 版的四個部位內。</p>
+            <p class="small muted" id="reg-note"></p>
             <div class="regions" id="regions"></div>
-            <div class="q" id="sc2-q" hidden><label class="check"><input type="checkbox" id="sc2"><span>脊髓 T2 病灶 <b>≥ 2 個</b>（原發進行型準則）</span></label></div>
+            <div class="q" id="sc2-q" hidden><label class="check"><input type="checkbox" id="sc2"><span>脊髓 T2 病灶 <b>≥ 2 個</b><span id="sc2-note">（原發進行型準則）</span></span></label></div>
           </div>
         </div>
 
         <div class="card step" id="dit-card">
           <div class="no">3</div>
           <div>
-            <h3>影像變化與腦脊髓液 <span class="pill info">時間多發性 DIT</span></h3>
+            <h3 id="dit-h">影像變化與腦脊髓液 <span class="pill info">時間多發性 DIT</span></h3>
             <div class="q">
               <label class="check" id="l-sim"><input type="checkbox" id="sim"><span>同一次 MRI 同時有顯影與未顯影的病灶</span></label>
               <label class="check" id="l-new"><input type="checkbox" id="newles"><span>追蹤 MRI 出現新的 T2 或顯影病灶（與基準 MRI 比較，不論間隔多久）</span></label>
               <label class="check"><input type="checkbox" id="ocb"><span>腦脊髓液特異性寡株帶 (OCB) 陽性（血清無對應條帶）</span></label>
+              <label class="check v24"><input type="checkbox" id="kflc"><span>CSF kappa 游離輕鏈 (kFLC) index 升高（可與 OCB 互換；IgG index 不能取代）</span></label>
+              <label class="check v24"><input type="checkbox" id="cvs"><span>中央靜脈徵象陽性（Select 6：≥ 6 個白質病灶有中央靜脈；病灶 &lt; 10 個時需過半數）</span></label>
+              <label class="check v24"><input type="checkbox" id="prl"><span>≥ 1 個順磁性邊緣病灶 (PRL)</span></label>
             </div>
-            <p class="small muted" style="margin-top:6px">2017 版新規定：典型 CIS 已符合空間多發性時，OCB 陽性可取代時間多發性。</p>
+            <p class="small muted" style="margin-top:6px" id="dit-note"></p>
           </div>
         </div>
 
@@ -211,7 +223,7 @@ tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
       </aside>
     </div>
 
-    <div class="card" style="margin-top:18px">
+    <div class="card" style="margin-top:18px" id="tbl17">
       <h3>2017 McDonald 準則對照 <span class="small muted">目前個案符合的路徑以色塊標示</span></h3>
       <div class="tablebox"><table>
         <thead><tr><th>臨床發作</th><th>客觀病灶</th><th>尚需的證據</th></tr></thead>
@@ -227,6 +239,25 @@ tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
       <div class="grid2" style="margin-top:14px">
         <div><span class="flabel">MRI 空間多發性</span><p class="small">腦室周圍、皮質或近皮質、天幕下、脊髓四個部位中，至少 2 個部位各有 ≥ 1 個 T2 病灶。</p></div>
         <div><span class="flabel">MRI 時間多發性</span><p class="small">任何時間同時有顯影與未顯影病灶；或追蹤 MRI 出現新的 T2 或顯影病灶。</p></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:18px" id="tbl24" hidden>
+      <h3>2024 McDonald 準則對照 <span class="small muted">目前個案符合的路徑以色塊標示</span></h3>
+      <div class="tablebox"><table>
+        <thead><tr><th>臨床表現</th><th>涉及部位</th><th>尚需的證據</th></tr></thead>
+        <tbody>
+          <tr id="q1"><td>典型發作，或漸進惡化 ≥ 12 個月</td><td>4–5 個</td><td>不需其他證據</td></tr>
+          <tr id="q2"><td>典型發作，或漸進惡化 ≥ 12 個月</td><td>2–3 個</td><td>以下任一：時間多發性、CSF 陽性（OCB 或 kFLC）、中央靜脈徵象</td></tr>
+          <tr id="q3"><td>典型發作，或漸進惡化 ≥ 12 個月</td><td>1 個</td><td>（時間多發性<b>或</b> CSF 陽性）<b>且</b>（中央靜脈徵象<b>或</b> ≥ 1 個 PRL）</td></tr>
+          <tr id="q4"><td>典型發作，或漸進惡化 ≥ 12 個月</td><td>0 個</td><td>無法診斷</td></tr>
+          <tr id="q5"><td>漸進惡化 ≥ 12 個月</td><td>脊髓 ≥ 2 個病灶</td><td>以下任一：時間多發性、CSF 陽性、中央靜脈徵象</td></tr>
+          <tr id="q6"><td>非特異症狀，或無症狀的影像發現 (RIS)</td><td>2–5 個</td><td>以下任一：時間多發性、CSF 陽性、中央靜脈徵象</td></tr>
+          <tr id="q7"><td>非特異症狀，或無症狀的影像發現 (RIS)</td><td>0–1 個</td><td>無法診斷</td></tr>
+        </tbody>
+      </table></div>
+      <div class="grid2" style="margin-top:14px">
+        <div><span class="flabel">五個部位</span><p class="small">腦室周圍、皮質或近皮質、天幕下、脊髓、視神經。視神經可由眼窩 MRI、OCT（兩眼 pRNFL 差 ≥ 6 µm 或 GCIPL 差 ≥ 4 µm）或 VEP 證實。</p></div>
+        <div><span class="flabel">≥ 50 歲或有血管危險因子、偏頭痛</span><p class="small">建議另有脊髓病灶、CSF 陽性，或中央靜脈徵象、PRL 等支持證據，以降低誤診。</p></div>
       </div>
     </div>
   </section>
@@ -289,7 +320,7 @@ tr.hit td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
       </div>
       <div class="card">
         <h3>2024 修訂版（2025 年發表）</h3>
-        <p class="small muted" style="margin-bottom:6px">本工具依 2017 版判定。2024 版統一了發作型與進行型的診斷方式，主要變更包括：</p>
+        <p class="small muted" style="margin-bottom:6px">在「診斷判定」分頁上方可切換為 2024 版判定。2024 版統一了發作型與進行型的診斷方式，主要變更包括：</p>
         <ul class="plain">
           <li>視神經列為第五個空間多發性部位。</li>
           <li>中央靜脈徵象、順磁性邊緣病灶與 CSF kappa 游離輕鏈可在特定情況做為支持證據。</li>
@@ -329,14 +360,18 @@ const REG=[
  ['pv','腦室周圍','Periventricular','<ellipse class="shape" cx="17" cy="17" rx="14" ry="11"/><path class="shape" d="M11 15 q6 -5 12 0 q-6 5 -12 0z"/><circle class="les" cx="10" cy="11" r="2.6"/>'],
  ['cjc','皮質／近皮質','Cortical / juxtacortical','<ellipse class="shape" cx="17" cy="17" rx="14" ry="11"/><path class="shape" d="M5 13 q4 -2 3 3 q4 -3 3 2"/><circle class="les" cx="6.5" cy="17" r="2.6"/>'],
  ['inf','天幕下','Infratentorial','<ellipse class="shape" cx="17" cy="12" rx="13" ry="8"/><path class="shape" d="M14 19 v10 M20 19 v10"/><ellipse class="shape" cx="24" cy="23" rx="6" ry="4"/><circle class="les" cx="17" cy="23" r="2.6"/>'],
- ['sc','脊髓','Spinal cord','<rect class="shape" x="12" y="2" width="10" height="30" rx="5"/><path class="shape" d="M17 4 v26" stroke-dasharray="2 3"/><circle class="les" cx="17" cy="20" r="2.8"/>']
+ ['sc','脊髓','Spinal cord','<rect class="shape" x="12" y="2" width="10" height="30" rx="5"/><path class="shape" d="M17 4 v26" stroke-dasharray="2 3"/><circle class="les" cx="17" cy="20" r="2.8"/>'],
+ ['on','視神經','Optic nerve · MRI／OCT／VEP','<path class="shape" d="M3 17 q14 -12 28 0 q-14 12 -28 0z"/><circle class="shape" cx="17" cy="17" r="4.5"/><circle class="les" cx="17" cy="17" r="2.4"/>']
 ];
 const FLAGS=[
  ['aqp4','AQP4-IgG 陽性'],['mog','MOG-IgG 陽性'],['letm','長節段橫貫性脊髓炎（≥ 3 個椎體節段）'],['ap','極後區症候群（頑固打嗝、嘔吐）'],
  ['on','嚴重雙側或視交叉視神經炎，恢復不良'],['sys','全身性疾病線索（類肉瘤病、全身性紅斑性狼瘡、血管炎、感染）'],['old','年齡 > 50 歲且病灶可由血管危險因子解釋']
 ];
-const S0=()=>({course:'rel',attacks:1,lesions:1,hist:false,typical:true,prog1y:false,reg:new Set(['pv','sc']),sc2:false,sim:false,newles:false,ocb:true,flags:new Set()});
+let VER='2017';try{const v=localStorage.getItem('ms-ver');if(v==='2017'||v==='2024')VER=v;}catch(e){}
+const S0=()=>({age:32,course:'rel',attacks:1,lesions:1,hist:false,typical:true,prog1y:false,reg:new Set(['pv','sc']),sc2:false,sim:false,newles:false,ocb:true,kflc:false,cvs:false,prl:false,flags:new Set()});
 let S=S0();
+segBind('#ver',v=>{VER=v;try{localStorage.setItem('ms-ver',v);}catch(e){}render();});
+$('#age').addEventListener('input',e=>{S.age=e.target.value===''?null:+e.target.value;touch();});
 
 $('#regions').innerHTML=REG.map(r=>`<label class="tile" id="t-${r[0]}"><input type="checkbox" id="rg-${r[0]}" data-r="${r[0]}"><span><svg viewBox="0 0 34 34" aria-hidden="true">${r[3]}</svg><b>${r[1]}</b><small>${r[2]}</small></span></label>`).join('');
 $('#flags').innerHTML=FLAGS.map(f=>`<label class="check"><input type="checkbox" id="fl-${f[0]}" data-f="${f[0]}"><span>${esc(f[1])}</span></label>`).join('');
@@ -344,19 +379,22 @@ function touch(){$('#sample').hidden=true;render();}
 segBind('#course',v=>{S.course=v;touch();});
 segBind('#attacks',v=>{S.attacks=+v;touch();});
 segBind('#lesions',v=>{S.lesions=+v;touch();});
-['hist','typical','prog1y','sc2','sim','newles','ocb'].forEach(k=>$('#'+(k==='newles'?'newles':k)).addEventListener('change',e=>{S[k]=e.target.checked;touch();}));
+['hist','typical','prog1y','sc2','sim','newles','ocb','kflc','cvs','prl'].forEach(k=>$('#'+k).addEventListener('change',e=>{S[k]=e.target.checked;touch();}));
 $$('#regions input').forEach(i=>i.addEventListener('change',()=>{i.checked?S.reg.add(i.dataset.r):S.reg.delete(i.dataset.r);touch();}));
 $$('#flags input').forEach(i=>i.addEventListener('change',()=>{i.checked?S.flags.add(i.dataset.f):S.flags.delete(i.dataset.f);touch();}));
 function fill(){
   segSet('#course',S.course);segSet('#attacks',S.attacks);segSet('#lesions',S.lesions);
-  ['hist','typical','prog1y','sc2','sim','newles','ocb'].forEach(k=>$('#'+k).checked=S[k]);
+  segSet('#ver',VER);$('#age').value=S.age??'';
+  ['hist','typical','prog1y','sc2','sim','newles','ocb','kflc','cvs','prl'].forEach(k=>$('#'+k).checked=S[k]);
   REG.forEach(r=>$('#rg-'+r[0]).checked=S.reg.has(r[0]));FLAGS.forEach(f=>$('#fl-'+f[0]).checked=S.flags.has(f[0]));
 }
-$('#reset').addEventListener('click',()=>{S={course:'rel',attacks:1,lesions:1,hist:false,typical:true,prog1y:false,reg:new Set(),sc2:false,sim:false,newles:false,ocb:false,flags:new Set()};$('#sample').hidden=true;fill();render();});
+$('#reset').addEventListener('click',()=>{S={age:null,course:'rel',attacks:1,lesions:1,hist:false,typical:true,prog1y:false,reg:new Set(),sc2:false,sim:false,newles:false,ocb:false,kflc:false,cvs:false,prl:false,flags:new Set()};$('#sample').hidden=true;fill();render();});
 
-const RN={pv:'腦室周圍',cjc:'皮質／近皮質',inf:'天幕下',sc:'脊髓'};
+const RN={pv:'腦室周圍',cjc:'皮質／近皮質',inf:'天幕下',sc:'脊髓',on:'視神經'};
+const reg17=()=>[...S.reg].filter(k=>k!=='on');
 function evaluate(){
-  const nReg=S.reg.size,mriDIS=nReg>=2,mriDIT=S.sim||S.newles;
+  if(VER==='2024')return evaluate24();
+  const nReg=reg17().length,mriDIS=nReg>=2,mriDIT=S.sim||S.newles;
   const r={row:null,verdict:'',cls:'',sub:'',dis:null,dit:null,disHow:'',ditHow:'',why:[],next:[],pheno:''};
   const Y=(ok,t)=>r.why.push([ok,t]);
   if(S.course==='prog'){
@@ -382,7 +420,7 @@ function evaluate(){
     if(r.dis){r.verdict='確診 MS';r.pheno='復發緩解型 (RRMS)';r.cls='go';r.sub='符合 2017 McDonald 準則。';}
     else{r.verdict='疑似 MS';r.cls='warn';r.sub='有 ≥ 2 次發作但只有 1 個客觀病灶，尚缺空間多發性。';r.next=['等待侵犯不同 CNS 部位的臨床發作','追蹤腦與脊髓 MRI，尋找其他部位病灶'];}
   }else{ /* 1 attack */
-    const clinDIS=S.lesions>=2;r.dis=clinDIS||mriDIS;r.disHow=clinDIS?'≥ 2 個客觀病灶':mriDIS?`MRI ${nReg} 個部位（${[...S.reg].map(k=>RN[k]).join('、')}）`:`MRI ${nReg} 個部位（需 ≥ 2）`;
+    const clinDIS=S.lesions>=2;r.dis=clinDIS||mriDIS;r.disHow=clinDIS?'≥ 2 個客觀病灶':mriDIS?`MRI ${nReg} 個部位（${reg17().map(k=>RN[k]).join('、')}）`:`MRI ${nReg} 個部位（需 ≥ 2）`;
     const ocbDIT=S.ocb&&r.dis&&S.typical;
     r.dit=mriDIT||ocbDIT;r.ditHow=S.sim?'同時有顯影與未顯影病灶':S.newles?'追蹤 MRI 新病灶':ocbDIT?'CSF 特異性 OCB 取代':S.ocb&&!r.dis?'OCB 陽性但尚未符合空間多發性，不能取代':S.ocb&&!S.typical?'非典型發作，OCB 不能取代':'尚未符合';
     r.row=S.lesions>=2?'r4':'r5';
@@ -396,35 +434,103 @@ function evaluate(){
   if(S.flags.size){r.flag=true;}
   return r;
 }
+function evaluate24(){
+  const locs=[...S.reg],n=locs.length,locTxt=n?locs.map(k=>RN[k]).join('、'):'無';
+  const mriDIT=S.sim||S.newles,prog=S.course==='prog',clinDIT=!prog&&S.attacks>=2;
+  const DIT=mriDIT||clinDIT,CSF=S.ocb||S.kflc,CVS=S.cvs,PRL=S.prl;
+  const nonspec=!prog&&(S.attacks===0||!S.typical);
+  const r={row:null,verdict:'',cls:'',sub:'',dis:null,dit:null,disHow:'',ditHow:'',why:[],next:[],pheno:''};
+  const Y=(ok,t)=>r.why.push([ok,t]);
+  const have=[DIT&&(clinDIT&&!mriDIT?'≥ 2 次臨床發作':'MRI 時間多發性'),S.ocb&&'OCB',S.kflc&&'kFLC',CVS&&'中央靜脈徵象',PRL&&'PRL'].filter(Boolean);
+  let need='',met=false,tier;
+  const any3=DIT||CSF||CVS;
+  if(nonspec){
+    if(n>=2){r.row='q6';tier='any';met=any3;need='時間多發性、CSF 陽性或中央靜脈徵象（任一）';}
+    else{r.row='q7';tier='none-possible';met=false;need='需 ≥ 2 個部位';}
+  }else if(n>=4){r.row='q1';tier='free';met=true;need='不需其他證據';}
+  else if(n>=2){r.row='q2';tier='any';met=any3;need='時間多發性、CSF 陽性或中央靜脈徵象（任一）';}
+  else if(prog&&S.sc2){r.row='q5';tier='any';met=any3;need='脊髓 ≥ 2 個病灶，加上時間多發性、CSF 陽性或中央靜脈徵象（任一）';}
+  else if(n===1){r.row='q3';tier='combo';met=(DIT||CSF)&&(CVS||PRL);need='（時間多發性或 CSF 陽性）且（中央靜脈徵象或 PRL）';}
+  else{r.row='q4';tier='none-possible';met=false;need='沒有客觀病灶部位，無法診斷';}
+  r.dis=n>=2||(prog&&S.sc2);
+  r.disHow=`${n} / 5 個部位（${locTxt}）${prog&&S.sc2&&n<2?'；脊髓 ≥ 2 個病灶':''}`;
+  r.dit=met;r.ditHow=tier==='free'?'4–5 個部位不需附加證據':(have.length?'已有：'+have.join('、'):'尚無')+'；需要：'+need;
+  if(prog)Y(S.prog1y,'與發作無關的失能進展 ≥ 12 個月');
+  else if(nonspec)Y(true,S.attacks===0?'無症狀的影像發現（RIS 路徑）':'非特異症狀（非典型發作路徑）');
+  else Y(true,`典型臨床發作 ${S.attacks>=2?'≥ 2':1} 次`);
+  Y(n>=1,`涉及部位：${locTxt}（${n} 個）`);
+  if(tier!=='free'&&tier!=='none-possible')Y(met,'附加證據：'+need);
+  const ok=met&&(!prog||S.prog1y);
+  const miss=[];
+  if(!ok&&tier!=='free'){
+    if(!mriDIT)miss.push('3–6 個月後追蹤腦與全脊髓 MRI（含顯影），尋找新病灶');
+    if(!CSF)miss.push('腰椎穿刺檢驗 CSF 寡株帶或 kFLC index');
+    if(!CVS)miss.push('以 SWI 或 T2* EPI 評估中央靜脈徵象');
+    if(tier==='combo'&&!PRL)miss.push('評估順磁性邊緣病灶 (PRL)');
+    if(!S.reg.has('on'))miss.push('以 OCT 或 VEP 評估視神經，可能增加一個部位');
+    if(!S.reg.has('sc'))miss.push('安排全脊髓 MRI');
+  }
+  if(prog){
+    if(ok){r.verdict='確診 MS';r.pheno='原發進行型 (PPMS)';r.cls='go';r.sub='符合 2024 McDonald 準則（漸進惡化 ≥ 12 個月）。';}
+    else if(n>=1||S.sc2){r.verdict='疑似 MS';r.pheno='疑似原發進行型';r.cls='warn';r.sub=!S.prog1y?'進展尚未滿 12 個月。':'尚缺附加證據。';r.next=[!S.prog1y&&'持續追蹤失能進展（EDSS、計時 25 呎步行）至滿 12 個月',...miss].filter(Boolean);}
+    else{r.verdict='不符合';r.cls='stop';r.sub='沒有客觀病灶部位，無法診斷。';}
+  }else if(nonspec){
+    if(ok){r.verdict='確診 MS';r.pheno=S.attacks===0?'由放射學孤立症候群診斷':'非特異症狀表現';r.cls='go';r.sub='2024 版允許在 ≥ 2 個部位加上時間多發性、CSF 陽性或中央靜脈徵象時診斷 MS。';}
+    else if(n>=2){r.verdict=S.attacks===0?'放射學孤立症候群':'疑似 MS';r.pheno=S.attacks===0?'RIS':'非特異症狀，部分符合';r.cls=S.attacks===0?'info':'warn';r.sub='已有 ≥ 2 個部位，尚缺時間多發性、CSF 陽性或中央靜脈徵象。';r.next=miss;}
+    else{r.verdict='不符合';r.cls='stop';r.sub='非特異症狀或無症狀者需 ≥ 2 個部位才能評估。';r.next=['定期追蹤 MRI','確認症狀是否為典型脫髓鞘發作'];}
+  }else{
+    if(ok){r.verdict='確診 MS';r.pheno='復發緩解型 (RRMS)';r.cls='go';r.sub=tier==='free'?'4–5 個部位受侵犯，符合 2024 McDonald 準則。':'符合 2024 McDonald 準則。';}
+    else if(n>=2||(n===1&&(DIT||CSF||CVS||PRL))){r.verdict='疑似 MS';r.pheno='臨床孤立症候群，部分符合準則';r.cls='warn';r.sub='尚缺：'+need+'。';r.next=miss;}
+    else{r.verdict='臨床孤立症候群 (CIS)';r.pheno='CIS';r.cls='info';r.sub=n===0?'沒有客觀病灶部位，無法診斷 MS。':'單一部位且沒有附加證據。';r.next=miss.length?miss:['追蹤 MRI'];}
+  }
+  if(r.cls==='go')r.next=['確認已檢驗 AQP4-IgG（必要時 MOG-IgG）','建立腦與脊髓 MRI 基準影像','討論疾病修飾治療 (DMT) 選擇','記錄 EDSS 做為基準'];
+  if(S.age!=null&&S.age>=50){
+    const sup=S.reg.has('sc')||CSF||CVS||PRL;
+    Y(sup,'≥ 50 歲：有脊髓病灶、CSF 陽性或中央靜脈徵象／PRL 支持');
+    if(!sup){r.old=true;r.next=['≥ 50 歲：建議取得脊髓病灶、CSF 陽性或中央靜脈徵象／PRL 等支持證據，並排除小血管病變',...r.next];}
+  }
+  if(S.flags.size)r.flag=true;
+  return r;
+}
 function render(){
   fill();
+  const v24=VER==='2024';
+  $$('.v24').forEach(e=>e.hidden=!v24);$$('.v17').forEach(e=>e.hidden=v24);
+  $('#t-on').hidden=!v24;
+  $('#tbl17').hidden=v24;$('#tbl24').hidden=!v24;
+  $('#ver-note').textContent=v24?'Montalban 等，Lancet Neurol 2025：統一發作型與進行型、加入視神經與新生物標記':'Thompson 等，Lancet Neurol 2018';
+  $('#reg-note').textContent=v24?'勾選有客觀病灶證據的部位（2024 版共五個部位）。有症狀與無症狀病灶都可計算；視神經可由眼窩 MRI、OCT 或 VEP 證實。':'勾選有 ≥ 1 個 T2 高訊號病灶的部位。有症狀與無症狀病灶都可計算；視神經不算在 2017 版的四個部位內。';
+  $('#sc2-note').textContent=v24?'（進行型病程：可單獨構成空間多發性）':'（原發進行型準則）';
+  $('#dit-h').innerHTML=v24?'影像變化、腦脊髓液與影像生物標記 <span class="pill info">附加證據</span>':'影像變化與腦脊髓液 <span class="pill info">時間多發性 DIT</span>';
+  $('#dit-note').textContent=v24?'2024 版：CSF 陽性指 OCB 或 kFLC index；中央靜脈徵象與 PRL 需 SWI 或 T2* EPI 等磁化率序列。':'2017 版新規定：典型 CIS 已符合空間多發性時，OCB 陽性可取代時間多發性。';
   const prog=S.course==='prog';
   $('#rel-block').hidden=prog;$('#prog-block').hidden=!prog;$('#sc2-q').hidden=!prog;
-  $('#les-q').classList.toggle('dim',S.attacks===0);$('#typ-q').classList.toggle('dim',S.attacks!==1);
+  $('#les-q').classList.toggle('dim',S.attacks===0);$('#typ-q').classList.toggle('dim',v24?S.attacks===0:S.attacks!==1);
   $('#hist-q').classList.toggle('dim',!(S.attacks>=2&&S.lesions===1));
   $('#l-sim').classList.toggle('dim',prog);$('#l-new').classList.toggle('dim',prog);
   const r=evaluate();
   const col={go:'go',warn:'warn',info:'info',stop:'stop'}[r.cls];
   const v=$('#v');v.textContent=r.flag?'需先排除其他診斷':r.verdict;v.style.color=`var(--${r.flag?'stop':col})`;
-  $('#vsub').innerHTML=(r.flag?`<span class="pill stop">有其他更合理解釋的線索</span> 準則本身${r.cls==='go'?'已符合':'判讀為「'+esc(r.verdict)+'」'}，但不應在排除前診斷 MS。`:(r.pheno?`<span class="pill ${col}">${esc(r.pheno)}</span> `:'')+esc(r.sub));
+  $('#vsub').innerHTML=(r.old&&!r.flag?'<span class="pill warn">≥ 50 歲，支持證據不足</span> ':'')+(r.flag?`<span class="pill stop">有其他更合理解釋的線索</span> 準則本身${r.cls==='go'?'已符合':'判讀為「'+esc(r.verdict)+'」'}，但不應在排除前診斷 MS。`:(r.pheno?`<span class="pill ${col}">${esc(r.pheno)}</span> `:'')+esc(r.sub));
   const g=(k,ok,how,na)=>`<div class="g ${na?'na':ok?'ok':'no'}"><div class="k">${k}</div><div class="v">${na?'不適用':ok?'已符合':'未符合'}</div><div class="how">${esc(how||'')}</div></div>`;
-  $('#gauges').innerHTML=prog?g('PPMS 影像與 CSF',r.dis,r.disHow)+g('進展 ≥ 1 年',r.dit,r.ditHow):g('空間多發性 DIS',r.dis,r.disHow,S.attacks===0&&false)+g('時間多發性 DIT',r.dit,r.ditHow);
+  $('#gauges').innerHTML=v24?g('空間分布（部位數）',r.dis,r.disHow)+g('附加證據',r.dit,r.ditHow):prog?g('PPMS 影像與 CSF',r.dis,r.disHow)+g('進展 ≥ 1 年',r.dit,r.ditHow):g('空間多發性 DIS',r.dis,r.disHow,S.attacks===0&&false)+g('時間多發性 DIT',r.dit,r.ditHow);
   $('#why').innerHTML=r.why.map(([ok,t])=>`<div class="${ok?'y':'n'}"><i>${ok?'✓':'✗'}</i><span>${esc(t)}</span></div>`).join('');
   const flagList=FLAGS.filter(f=>S.flags.has(f[0])).map(f=>f[1]);
   const next=r.flag?[`已勾選：${flagList.join('、')}`,'依 NMOSD 或 MOGAD 國際準則評估，並避免使用可能加重 NMOSD 的 MS 藥物',...r.next.filter(x=>!/DMT/.test(x))]:r.next;
   $('#next').innerHTML=next.length?`<span class="flabel">下一步</span><ul class="plain">${next.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:'';
-  ['r1','r2','r3','r4','r5','r6'].forEach(id=>$('#'+id).classList.toggle('hit',id===r.row));
+  ['r1','r2','r3','r4','r5','r6','q1','q2','q3','q4','q5','q6','q7'].forEach(id=>$('#'+id).classList.toggle('hit',id===r.row));
   REG.forEach(x=>$('#t-'+x[0]).classList.toggle('off',false));
   window.__r=r;
 }
 $('#copy').addEventListener('click',()=>{
   const r=window.__r,L=[];
-  L.push(`【多發性硬化症 2017 McDonald 判定】${r.flag?'需先排除其他診斷（'+FLAGS.filter(f=>S.flags.has(f[0])).map(f=>f[1]).join('、')+'）':r.verdict}${r.pheno?'（'+r.pheno+'）':''}`);
+  L.push(`【多發性硬化症 ${VER} McDonald 判定】${r.flag?'需先排除其他診斷（'+FLAGS.filter(f=>S.flags.has(f[0])).map(f=>f[1]).join('、')+'）':r.verdict}${r.pheno?'（'+r.pheno+'）':''}`);
   if(S.course==='prog')L.push(`病程：發病即漸進惡化；進展 ≥ 1 年：${S.prog1y?'是':'否'}`);
-  else L.push(`臨床發作 ${S.attacks===2?'≥ 2':S.attacks} 次；客觀病灶 ${S.lesions===2?'≥ 2':S.lesions} 個${S.hist?'（另有他處發作病史）':''}`);
-  L.push(`MRI 病灶部位：${[...S.reg].map(k=>RN[k]).join('、')||'無'}${S.sc2?'；脊髓 ≥ 2 個':''}`);
-  L.push(`DIS：${r.dis?'符合':'未符合'}（${r.disHow}）；DIT：${r.dit?'符合':'未符合'}（${r.ditHow}）`);
-  L.push(`MRI 同時顯影與未顯影：${S.sim?'有':'無'}；追蹤新病灶：${S.newles?'有':'無'}；CSF OCB：${S.ocb?'陽性':'陰性或未驗'}`);
+  else L.push(`臨床發作 ${S.attacks===2?'≥ 2':S.attacks} 次${VER==='2024'?(S.typical?'（典型）':'（非特異／非典型）'):`；客觀病灶 ${S.lesions===2?'≥ 2':S.lesions} 個${S.hist?'（另有他處發作病史）':''}`}`);
+  if(VER==='2024'&&S.age!=null)L.push(`年齡 ${S.age} 歲`);
+  L.push(`病灶部位：${(VER==='2024'?[...S.reg]:reg17()).map(k=>RN[k]).join('、')||'無'}${S.sc2?'；脊髓 ≥ 2 個':''}`);
+  L.push(VER==='2024'?`部位：${r.disHow}；附加證據：${r.dit?'符合':'未符合'}（${r.ditHow}）`:`DIS：${r.dis?'符合':'未符合'}（${r.disHow}）；DIT：${r.dit?'符合':'未符合'}（${r.ditHow}）`);
+  L.push(`MRI 同時顯影與未顯影：${S.sim?'有':'無'}；追蹤新病灶：${S.newles?'有':'無'}；CSF OCB：${S.ocb?'陽性':'陰性或未驗'}${VER==='2024'?`；kFLC：${S.kflc?'升高':'未升高或未驗'}；中央靜脈徵象：${S.cvs?'陽性':'陰性或未評估'}；PRL：${S.prl?'有':'無或未評估'}`:''}`);
   if(r.next.length)L.push('建議：'+r.next.join('；'));
   copyText(L.join('\n'));
 });

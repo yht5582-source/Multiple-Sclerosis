@@ -1,6 +1,6 @@
 # 多發性硬化症診斷判定
 
-依 2017 McDonald 準則自動判定多發性硬化症（Multiple sclerosis）的互動網頁。
+依 2017 或 2024 McDonald 準則（可切換）自動判定多發性硬化症（Multiple sclerosis）的互動網頁。
 
 線上版：https://yht5582-source.github.io/Multiple-Sclerosis/
 
@@ -13,6 +13,7 @@
    - 輸出結論：確診 MS（RRMS 或 PPMS）、疑似 MS、臨床孤立症候群 (CIS)、放射學孤立症候群 (RIS)，並標示 McDonald 對照表中符合的路徑與下一步檢查。
    - 「更合理解釋」紅旗（AQP4-IgG、MOG-IgG、長節段脊髓炎等）會覆蓋結論，提醒先排除 NMOSD 或 MOGAD。
 2. **鑑別診斷與紅旗**：MS、NMOSD、MOGAD 比較與建議檢查。
+   - **2024 版模式**：五個部位（加入視神經，可由 MRI、OCT、VEP 證實）、CSF 陽性（OCB 或 kFLC index）、中央靜脈徵象 (Select 6)、順磁性邊緣病灶 (PRL)；依部位數（4–5／2–3／1）判定所需附加證據；支援非特異症狀與放射學孤立症候群路徑，以及 ≥ 50 歲的額外支持證據提醒。
 3. **準則對照與文獻**：2017 版變更重點、2024 修訂版摘要。
 
 ## 主要依據
