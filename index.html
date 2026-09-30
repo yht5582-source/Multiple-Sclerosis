@@ -88,7 +88,9 @@ th{font-weight:500;color:var(--ink-2);font-size:12.5px;white-space:nowrap}
 .dim{opacity:.45;pointer-events:none}
 /* region tiles */
 .regions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
-@media (max-width:640px){.regions{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.regions.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:900px){.regions.five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.regions,.regions.five{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .tile{position:relative}
 .tile input{position:absolute;opacity:0;pointer-events:none}
 .tile span{display:grid;gap:4px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;background:var(--paper);min-height:96px}
@@ -179,7 +181,7 @@ input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(-
         <div class="card step">
           <div class="no">2</div>
           <div>
-            <h3>MRI 病灶位置 <span class="pill info">空間多發性 DIS</span></h3>
+            <h3><span id="reg-h">MRI 病灶位置</span> <span class="pill info">空間多發性 DIS</span></h3>
             <p class="small muted" id="reg-note"></p>
             <div class="regions" id="regions"></div>
             <div class="q" id="sc2-q" hidden><label class="check"><input type="checkbox" id="sc2"><span>脊髓 T2 病灶 <b>≥ 2 個</b><span id="sc2-note">（原發進行型準則）</span></span></label></div>
@@ -497,9 +499,11 @@ function render(){
   const v24=VER==='2024';
   $$('.v24').forEach(e=>e.hidden=!v24);$$('.v17').forEach(e=>e.hidden=v24);
   $('#t-on').hidden=!v24;
+  $('#regions').classList.toggle('five',v24);
   $('#tbl17').hidden=v24;$('#tbl24').hidden=!v24;
   $('#ver-note').textContent=v24?'Montalban 等，Lancet Neurol 2025：統一發作型與進行型、加入視神經與新生物標記':'Thompson 等，Lancet Neurol 2018';
   $('#reg-note').textContent=v24?'勾選有客觀病灶證據的部位（2024 版共五個部位）。有症狀與無症狀病灶都可計算；視神經可由眼窩 MRI、OCT 或 VEP 證實。':'勾選有 ≥ 1 個 T2 高訊號病灶的部位。有症狀與無症狀病灶都可計算；視神經不算在 2017 版的四個部位內。';
+  $('#reg-h').textContent=v24?'病灶部位（MRI、OCT、VEP）':'MRI 病灶位置';
   $('#sc2-note').textContent=v24?'（進行型病程：可單獨構成空間多發性）':'（原發進行型準則）';
   $('#dit-h').innerHTML=v24?'影像變化、腦脊髓液與影像生物標記 <span class="pill info">附加證據</span>':'影像變化與腦脊髓液 <span class="pill info">時間多發性 DIT</span>';
   $('#dit-note').textContent=v24?'2024 版：CSF 陽性指 OCB 或 kFLC index；中央靜脈徵象與 PRL 需 SWI 或 T2* EPI 等磁化率序列。':'2017 版新規定：典型 CIS 已符合空間多發性時，OCB 陽性可取代時間多發性。';
