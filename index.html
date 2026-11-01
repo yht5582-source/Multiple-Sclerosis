@@ -132,6 +132,64 @@ input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(-
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);font-size:13.5px;padding:8px 16px;border-radius:999px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* cases */
+.case-grid{display:grid;gap:16px}
+.case-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline;margin-bottom:8px}
+.case-no{font-family:var(--f-mono);font-size:13px;color:var(--accent);font-weight:500}
+.case-head h3{font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.chips span{font-size:12.5px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--ink-2)}
+.case-ask{font-weight:500;margin-top:8px}
+.case-actions{margin-top:12px}
+.verdicts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+@media (max-width:640px){.verdicts{grid-template-columns:minmax(0,1fr)}}
+.vd{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.vd .k{font-size:12px;color:var(--ink-2)}
+.vd .v{font-family:var(--f-display);font-size:17px;line-height:1.35}
+.vd .how{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.vd.go{border-color:var(--go);background:var(--go-soft)} .vd.go .v{color:var(--go)}
+.vd.warn{border-color:var(--warn);background:var(--warn-soft)} .vd.warn .v{color:var(--warn)}
+.vd.info{border-color:var(--info);background:var(--info-soft)} .vd.info .v{color:var(--info)}
+.vd.stop{border-color:var(--stop);background:var(--stop-soft)} .vd.stop .v{color:var(--stop)}
+.cite{font-size:12.5px;color:var(--ink-3);margin-top:8px}
+
+/* quiz */
+.quiz-bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.quiz-score{font-size:14px;color:var(--ink-2)}
+.quiz-score b{font-family:var(--f-mono);font-weight:500;color:var(--ink)}
+.qitem .qno{font-family:var(--f-mono);font-size:13px;color:var(--accent);margin-right:6px}
+.qitem .stem{font-size:15px;font-weight:500;margin:6px 0 10px}
+.opts{display:grid;gap:6px}
+.opt{appearance:none;font:inherit;font-size:14px;text-align:left;display:grid;grid-template-columns:24px minmax(0,1fr);gap:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:8px 10px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt b{font-family:var(--f-mono);font-weight:500;color:var(--ink-3)}
+.opt.right{border-color:var(--go);background:var(--go-soft)} .opt.right b{color:var(--go)}
+.opt.wrong{border-color:var(--stop);background:var(--stop-soft)} .opt.wrong b{color:var(--stop)}
+.explain{margin-top:10px;font-size:14px;border-left:3px solid var(--line);padding:2px 0 2px 12px}
+.explain strong.ok{color:var(--go)} .explain strong.bad{color:var(--stop)}
+
+/* mind map */
+.map-bar{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.mm{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 148px minmax(0,1fr);gap:0 52px;align-items:center}
+.mm svg.links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.mm svg.links path{fill:none;stroke:var(--line);stroke-width:1.6}
+.mm svg.links path.l{stroke:var(--accent)} .mm svg.links path.r{stroke:var(--info)}
+.mm-root{position:relative;z-index:1;text-align:center;font-family:var(--f-display);font-size:18px;line-height:1.35;background:var(--ink);color:var(--paper);border-radius:12px;padding:16px 10px}
+.mm-side{position:relative;z-index:1;display:grid;gap:10px;min-width:0}
+.mm-title{font-size:12px;letter-spacing:.08em;color:var(--ink-3);font-weight:500}
+.mm-node{background:var(--panel);border:1.5px solid var(--line);border-radius:10px;min-width:0}
+.mm-side.left .mm-node{border-color:var(--accent)} .mm-side.right .mm-node{border-color:var(--info)}
+.mm-btn{appearance:none;width:100%;border:0;background:none;font:inherit;font-weight:500;font-size:14.5px;color:var(--ink);text-align:left;cursor:pointer;display:flex;gap:8px;justify-content:space-between;align-items:center;padding:8px 12px}
+.mm-btn i{font-style:normal;font-family:var(--f-mono);color:var(--ink-3);flex:none}
+.mm-node ul{margin:0;padding:0 12px 10px 28px;display:grid;gap:5px;font-size:13.5px}
+.mm-node li small{color:var(--ink-3);font-size:11.5px;margin-left:4px;white-space:nowrap}
+@media (max-width:900px){
+  .mm{grid-template-columns:minmax(0,1fr);gap:14px}
+  .mm svg.links{display:none}
+  .mm-root{order:-1}
+}
 </style>
 </head>
 <body>
@@ -145,6 +203,9 @@ input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(-
       <button class="tab" role="tab" id="tab-dx" aria-controls="dx" data-t="dx"><b>1</b>診斷判定</button>
       <button class="tab" role="tab" id="tab-dd" aria-controls="dd" data-t="dd"><b>2</b>鑑別診斷與紅旗</button>
       <button class="tab" role="tab" id="tab-ref" aria-controls="ref" data-t="ref"><b>3</b>準則對照與文獻</button>
+      <button class="tab" role="tab" id="tab-cases" aria-controls="cases" data-t="cases"><b>4</b>示範病例</button>
+      <button class="tab" role="tab" id="tab-quiz" aria-controls="quiz" data-t="quiz"><b>5</b>考題</button>
+      <button class="tab" role="tab" id="tab-map" aria-controls="map" data-t="map"><b>6</b>心智圖</button>
     </nav>
   </header>
 
@@ -338,10 +399,39 @@ input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(-
           <li>Wingerchuk DM, et al. International consensus diagnostic criteria for neuromyelitis optica spectrum disorders. <i>Neurology</i> 2015;85:177–189.</li>
           <li>Banwell B, et al. Diagnosis of myelin oligodendrocyte glycoprotein antibody-associated disease: international MOGAD Panel proposed criteria. <i>Lancet Neurol</i> 2023;22:268–282.</li>
           <li>Okuda DT, et al. Incidental MRI anomalies suggestive of multiple sclerosis: the radiologically isolated syndrome. <i>Neurology</i> 2009;72:800–805.</li>
+          <li>Montalban X, et al. ECTRIMS/EAN guideline on the pharmacological treatment of people with multiple sclerosis. <i>Mult Scler</i> 2018;24:96–120. <a href="https://doi.org/10.1177/1352458517751049" target="_blank" rel="noopener">doi:10.1177/1352458517751049</a></li>
+          <li>Le Page E, et al. Oral versus intravenous high-dose methylprednisolone for treatment of relapses in patients with multiple sclerosis (COPOUSEP). <i>Lancet</i> 2015;386:974–981. <a href="https://doi.org/10.1016/S0140-6736(15)61137-0" target="_blank" rel="noopener">doi:10.1016/S0140-6736(15)61137-0</a></li>
         </ol>
       </div>
     </div>
     <p class="disclaimer">本工具為臨床決策輔助與教學用途。McDonald 準則適用於典型脫髓鞘表現的病人，必須在排除其他更合理的診斷後使用，不能取代神經科醫師的完整評估。</p>
+  </section>
+
+  <!-- ============ 4. Cases ============ -->
+  <section class="pane" id="cases" role="tabpanel" aria-labelledby="tab-cases" hidden>
+    <p class="small muted" style="margin-bottom:14px">8 例皆為虛構教學病例。先自己判讀，再按「看判讀」；2017 與 2024 的結果由本頁判定工具即時算出，也可帶入工具修改條件。</p>
+    <div class="case-grid" id="case-list"></div>
+  </section>
+
+  <!-- ============ 5. Quiz ============ -->
+  <section class="pane" id="quiz" role="tabpanel" aria-labelledby="tab-quiz" hidden>
+    <div class="card quiz-bar">
+      <div class="seg" id="quiz-filter"><button data-v="all" aria-pressed="true">全部 20</button><button data-v="basic" aria-pressed="false">基礎 10</button><button data-v="adv" aria-pressed="false">高階 10</button></div>
+      <span class="quiz-score" id="quiz-score" aria-live="polite"></span>
+      <button class="btn" id="quiz-reset">重新作答</button>
+    </div>
+    <div class="case-grid" id="quiz-list"></div>
+    <p class="disclaimer">作答紀錄不會儲存，重新整理頁面後清除。</p>
+  </section>
+
+  <!-- ============ 6. Mind map ============ -->
+  <section class="pane" id="map" role="tabpanel" aria-labelledby="tab-map" hidden>
+    <div class="card map-bar">
+      <p class="small muted">點分支展開。出處標記：<b>M24</b> 2024 McDonald、<b>M17</b> 2017 McDonald、<b>N15</b> NMOSD 2015、<b>G23</b> MOGAD 2023、<b>E18</b> ECTRIMS/EAN 2018（R 為建議編號）、<b>C15</b> COPOUSEP。</p>
+      <div class="row"><button class="btn" id="map-open">全部展開</button><button class="btn" id="map-close">全部收合</button></div>
+    </div>
+    <div class="mm" id="mm"></div>
+    <p class="disclaimer">藥物內容僅摘要 2018 年 ECTRIMS/EAN 指引與 COPOUSEP 試驗，未涵蓋其後上市的藥物與仿單更新，也未核對台灣健保給付；處方前請查最新仿單與給付規定。</p>
   </section>
 </div>
 <div class="toast" id="toast" role="status"></div>
@@ -354,9 +444,10 @@ function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');cl
 function copyText(txt){const ok=()=>toast('已複製到剪貼簿');const fb=()=>{const ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok();}catch(e){toast('無法自動複製，請手動選取');}ta.remove();};try{navigator.clipboard.writeText(txt).then(ok,fb);}catch(e){fb();}}
 function segBind(sel,cb){$$(sel+' button').forEach(b=>b.addEventListener('click',()=>{segSet(sel,b.dataset.v);cb(b.dataset.v);}));}
 function segSet(sel,v){$$(sel+' button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===String(v)?'true':'false'));}
-const TABS=['dx','dd','ref'];
-function showTab(id){TABS.forEach(t=>{$('#'+t).hidden=t!==id;$('#tab-'+t).setAttribute('aria-selected',t===id?'true':'false');});try{localStorage.setItem('ms-tab',id);}catch(e){}}
-$$('.tab').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.t)));
+const TABS=['dx','dd','ref','cases','quiz','map'];
+function showTab(id){TABS.forEach(t=>{$('#'+t).hidden=t!==id;$('#tab-'+t).setAttribute('aria-selected',t===id?'true':'false');});try{localStorage.setItem('ms-tab',id);}catch(e){}if(id==='map')drawMap();}
+$$('.tab').forEach(b=>b.addEventListener('click',()=>{showTab(b.dataset.t);try{history.replaceState(null,'','#'+b.dataset.t);}catch(e){}}));
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(TABS.includes(h))showTab(h);});
 
 const REG=[
  ['pv','腦室周圍','Periventricular','<ellipse class="shape" cx="17" cy="17" rx="14" ry="11"/><path class="shape" d="M11 15 q6 -5 12 0 q-6 5 -12 0z"/><circle class="les" cx="10" cy="11" r="2.6"/>'],
@@ -392,6 +483,7 @@ function fill(){
 }
 $('#reset').addEventListener('click',()=>{S={age:null,course:'rel',attacks:1,lesions:1,hist:false,typical:true,prog1y:false,reg:new Set(),sc2:false,sim:false,newles:false,ocb:false,kflc:false,cvs:false,prl:false,flags:new Set()};$('#sample').hidden=true;fill();render();});
 
+/*ENGINE-START*/
 const RN={pv:'腦室周圍',cjc:'皮質／近皮質',inf:'天幕下',sc:'脊髓',on:'視神經'};
 const reg17=()=>[...S.reg].filter(k=>k!=='on');
 function evaluate(){
@@ -494,6 +586,7 @@ function evaluate24(){
   if(S.flags.size)r.flag=true;
   return r;
 }
+/*ENGINE-END*/
 function render(){
   fill();
   const v24=VER==='2024';
@@ -538,6 +631,206 @@ $('#copy').addEventListener('click',()=>{
   if(r.next.length)L.push('建議：'+r.next.join('；'));
   copyText(L.join('\n'));
 });
+
+/*CASES-START*/
+const CASES=[
+ {id:'c1',title:'單側視神經炎，同時有顯影與未顯影病灶',tag:'基礎',
+  stem:'28 歲女性，右眼視力下降 4 天，轉動眼球會痛，無發燒。右眼相對性傳入瞳孔障礙，眼窩 MRI 右視神經短段 T2 高訊號並顯影。腦部 MRI 有腦室周圍與近皮質的卵圓形病灶，其中一顆近皮質病灶顯影，其他未顯影。AQP4-IgG 陰性。',
+  data:['臨床發作 1 次（典型）','部位：腦室周圍、皮質／近皮質、視神經','同一次 MRI 同時有顯影與未顯影病灶'],
+  ask:'這次 MRI 就足以診斷 MS 嗎？兩版準則計算的部位數有何不同？',
+  state:{age:28,attacks:1,lesions:1,typical:true,reg:['pv','cjc','on'],sim:true},
+  expect:{2017:'確診 MS',2024:'確診 MS'},
+  reason:['2017 版只算四個部位，視神經不計，靠腦室周圍＋近皮質符合 DIS；同時有顯影與未顯影病灶符合 DIT。','2024 版視神經算第五個部位，共 3 個部位，再加 DIT 即符合。','兩版結論相同，但前提都是沒有更好的解釋。'],
+  next:['建立腦與脊髓 MRI 基準影像','與病人討論早期疾病修飾治療 (E18 R3)','急性期若需治療，高劑量 methylprednisolone 1000 mg/天 × 3 天，口服不劣於靜脈 (C15)'],
+  cite:'Montalban 2025 Panel 2–3；Thompson 2018 Table；ECTRIMS/EAN 2018 R3；COPOUSEP 2015'},
+ {id:'c2',title:'只有一個腦部部位＋視神經，檢驗室只有 kFLC',tag:'2024 差異',
+  stem:'26 歲女性，左眼視神經炎 1 週，無發燒。腦部 MRI 僅腦室周圍有 2 顆典型病灶、皆未顯影；全脊髓 MRI 正常。VEP：左眼 P100 潛時延遲，超過該檢驗室標準。本院無法驗寡株帶，CSF kFLC index 升高。AQP4-IgG 陰性。',
+  data:['臨床發作 1 次（典型）','部位：腦室周圍＋視神經（VEP）','kFLC index 升高；OCB 未驗'],
+  ask:'2017 與 2024 的判定各是什麼？這時用 OCT 證實視神經受侵犯合適嗎？',
+  state:{age:26,attacks:1,lesions:1,typical:true,reg:['pv','on'],kflc:true},
+  expect:{2017:'臨床孤立症候群 (CIS)',2024:'確診 MS'},
+  reason:['2017 版視神經不計，只剩 1 個部位，不符合 DIS；kFLC 也不在 2017 準則內。','2024 版 VEP 可證實視神經，加上腦室周圍共 2 個部位；kFLC index 可與 OCB 互換，等於 CSF 陽性，因此符合。','IgG index 不能取代 kFLC 或 OCB。'],
+  next:['確認 VEP 依該中心的品管與切點判讀','追蹤 MRI 建立基準'],
+  pit:'OCT 的視網膜變薄通常在視神經炎後至少 6 個月才最明顯，急性期不適合用來證實。兩眼差異也可能低估雙側病變。',
+  cite:'Montalban 2025 Panel 2–4 與視神經段落'},
+ {id:'c3',title:'四個部位都有典型病灶，尚未驗 CSF',tag:'2024 差異',
+  stem:'31 歲男性，右側肢體麻木由下往上 3 天，檢查有 Lhermitte 徵象，無發燒。MRI 頸髓短段後側病灶；腦部有腦室周圍、近皮質與橋腦典型病灶，全部未顯影。病人暫時不願做腰椎穿刺。AQP4-IgG 陰性，其他篩檢無特殊。',
+  data:['臨床發作 1 次（典型）','部位：腦室周圍、皮質／近皮質、天幕下、脊髓','無 DIT、未驗 CSF'],
+  ask:'一定要等 DIT 或腰椎穿刺才能診斷嗎？',
+  state:{age:31,attacks:1,lesions:1,typical:true,reg:['pv','cjc','inf','sc']},
+  expect:{2017:'疑似 MS',2024:'確診 MS'},
+  reason:['2017 版符合 DIS，但缺 DIT，也沒有 OCB，只能算疑似。','2024 版典型表現且有 ≥ 4 個部位時，不需其他證據。','DIT 不再是必要條件，但仍可提高診斷特異性。'],
+  next:['無法排除其他診斷時仍可補驗 CSF','與病人討論治療時機'],
+  pit:'「4 個部位即可」只適用於典型發作或漸進惡化；非特異症狀或 RIS 不能套用（見考題 13）。',
+  cite:'Montalban 2025 Panel 3、Figure 3 與 DIT 段落'},
+ {id:'c4',title:'單一脊髓部位，OCB 陽性＋順磁性邊緣病灶',tag:'高階',
+  stem:'38 歲女性，部分性脊髓炎，胸髓 T2 短段病灶。腦部只有一顆深部白質病灶，不屬於腦室周圍、皮質或近皮質、天幕下；視神經檢查正常。CSF 特異性 OCB 陽性。3T SWI 見該深部白質病灶有順磁性邊緣。AQP4-IgG 陰性，全身性檢查無特殊。',
+  data:['臨床發作 1 次（典型）','部位：脊髓（1 個）','OCB 陽性；PRL ≥ 1'],
+  ask:'單一部位要符合哪兩組條件？如果沒有 PRL 結論會變嗎？',
+  state:{age:38,attacks:1,lesions:1,typical:true,reg:['sc'],ocb:true,prl:true},
+  expect:{2017:'臨床孤立症候群 (CIS)',2024:'確診 MS'},
+  reason:['2024 版單一部位需要（CSF 陽性或 DIT）且（Select 6 CVS 或 ≥ 1 個 PRL）。本例 OCB＋PRL 符合。','若沒有 PRL 或 CVS，只有 OCB 仍不夠，工具會顯示疑似 MS。','2017 版不符合 DIS，OCB 不能單獨成立診斷。'],
+  next:['評估 CVS 可再增加特異性','追蹤 MRI，留意其他部位新病灶'],
+  pit:'單獨脊髓與 CSF 發現要謹慎解讀，先排除其他脊髓病因。',
+  cite:'Montalban 2025 Panel 3–4、Figure 3'},
+ {id:'c5',title:'頭痛檢查意外發現的白質病灶',tag:'RIS',
+  stem:'35 歲女性，偏頭痛多年，門診檢查 MRI 發現腦室周圍、近皮質與頸髓典型 T2 病灶，皆未顯影。神經學檢查正常，回溯病史沒有符合發作或進展的症狀。無血管危險因子。腰椎穿刺 CSF 特異性 OCB 陽性。',
+  data:['無臨床發作（RIS）','部位：腦室周圍、皮質／近皮質、脊髓','OCB 陽性'],
+  ask:'這是 RIS，還是已經可以診斷 MS？偏頭痛如何影響判讀？',
+  state:{age:35,attacks:0,lesions:1,typical:false,reg:['pv','cjc','sc'],ocb:true},
+  expect:{2017:'放射學孤立症候群',2024:'確診 MS'},
+  reason:['2017 版沒有臨床發作就不能診斷 MS。','2024 版 RIS 只要 ≥ 2 個部位，加上 DIT、CSF 陽性或 Select 6 CVS 任一項，即可診斷。','偏頭痛會造成腦室周圍病灶，是誤診風險；本例的脊髓病灶與 OCB 都支持脫髓鞘，不是單靠腦部白質病灶。'],
+  next:['先排除更好的解釋，再告知診斷','與病人討論追蹤與治療；觀察性研究中 RIS 約 51% 在 10 年內出現症狀'],
+  pit:'PRL 不在 RIS 的三項條件內。',
+  cite:'Montalban 2025 RIS 段落、Panel 5–6、Figure 2'},
+ {id:'c6',title:'漸進性雙下肢無力 18 個月',tag:'進行型',
+  stem:'56 歲男性，雙下肢無力逐漸加重 18 個月，期間沒有明確發作，EDSS 由 3.0 升到 4.5。腦部 MRI 正常範圍；胸髓有 2 顆以上短段 T2 病灶。CSF 特異性 OCB 陽性。維生素 B12、梅毒、HIV 正常，無血管危險因子。',
+  data:['漸進惡化 ≥ 12 個月','脊髓 ≥ 2 個病灶','OCB 陽性；56 歲'],
+  ask:'只有脊髓病灶可以算空間分布嗎？56 歲需要額外證據嗎？',
+  state:{age:56,course:'prog',prog1y:true,reg:['sc'],sc2:true,ocb:true},
+  expect:{2017:'確診 MS',2024:'確診 MS'},
+  reason:['2017 版：進展 ≥ 1 年，加上三項中兩項（脊髓 ≥ 2、OCB）。','2024 版：進展 ≥ 12 個月且脊髓 ≥ 2 個病灶視為符合 DIS，再加 CSF 陽性。','≥ 50 歲強烈建議有脊髓病灶、CSF 陽性或 CVS 等額外特徵，本例已有前兩項。'],
+  next:['可考慮 ocrelizumab（弱建議，E18 R8）；處方前查最新仿單與給付','持續排除其他進行性脊髓病變'],
+  pit:'孤立的脊髓與 CSF 發現在進行型表現要謹慎解讀，因為多種漸進性神經疾病可有相似表現。',
+  cite:'Montalban 2025 Panel 3、5–6；Thompson 2018；ECTRIMS/EAN 2018 R8'},
+ {id:'c7',title:'頑固打嗝後出現長節段脊髓炎',tag:'鑑別',
+  stem:'44 歲女性，2 週頑固打嗝與嘔吐，隨後雙下肢無力、排尿困難。脊髓 MRI T2 病灶連續 5 個椎體節段，位於中央；腦部 MRI 有腦室周圍病灶。AQP4-IgG（細胞基礎檢測）陽性，OCB 陰性。外院建議開始 fingolimod。',
+  data:['極後區症候群','長節段脊髓炎 ≥ 3 節','AQP4-IgG 陽性'],
+  ask:'可以套 McDonald 準則嗎？對外院的用藥建議如何回應？',
+  state:{age:44,attacks:1,lesions:1,typical:true,reg:['pv','sc'],flags:['aqp4','letm','ap']},
+  expect:{2017:'需先排除其他診斷',2024:'需先排除其他診斷'},
+  reason:['AQP4-IgG 陽性加上至少 1 項核心臨床特徵（本例有脊髓炎與極後區症候群），且排除其他診斷，符合 NMOSD。','McDonald 準則前提是沒有更好的解釋，因此不應診斷 MS。','觀察性資料顯示 interferon-β、natalizumab、fingolimod 可能使 NMO 惡化。'],
+  next:['依 NMOSD 路徑處置，不採用 fingolimod','由神經免疫專科決定急性與長期治療'],
+  pit:'MS、NMOSD、MOGAD 的典型表現會重疊，可能要靠影像與抗體才能區分。kFLC 也可能在 NMOSD、MOGAD 升高，與 MS 重疊最多的是 NMOSD，須配合臨床與 MRI。',
+  cite:'Wingerchuk 2015；Montalban 2025 kFLC 段落'},
+ {id:'c8',title:'58 歲血管危險因子，白質病灶與非特異頭暈',tag:'高階',
+  stem:'58 歲女性，高血壓、糖尿病、吸菸，反覆非特異頭暈數月，無局部神經學異常。MRI 有腦室周圍與近皮質 T2 小病灶，未顯影；全脊髓 MRI 正常。OCB 陰性、kFLC index 正常。Select 6 評估未達陽性。',
+  data:['非特異症狀','部位：腦室周圍、皮質／近皮質','脊髓、CSF、CVS 都沒有支持證據'],
+  ask:'這樣的 MRI 能算空間分布嗎？應告知病人已診斷 MS 嗎？',
+  state:{age:58,attacks:1,lesions:1,typical:false,reg:['pv','cjc'],flags:['old']},
+  expect:{2017:'需先排除其他診斷',2024:'需先排除其他診斷'},
+  reason:['≥ 50 歲或有血管危險因子時，誤診風險較高，強烈建議另有脊髓病灶、CSF 陽性或 CVS 陽性。本例三項都沒有。','腦室周圍病灶不具特異性，小血管病變也會出現；提高到 ≥ 3 顆也無法區分年齡相關變化。','非特異症狀本來就需要 ≥ 2 個部位再加 DIT、CSF 陽性或 CVS，本例沒有。'],
+  next:['不診斷 MS，控制血管危險因子，查其他頭暈原因','有新的神經或影像變化時再評估'],
+  pit:'2024 版對這類病人的 PRL 沒有形成共識，不要用 PRL 代替上述三項。',
+  cite:'Montalban 2025 Panel 6 與 ≥ 50 歲段落'}
+];
+/*CASES-END*/
+
+/*QUIZ-START*/
+const QUIZ=[
+ {lv:'basic',q:'2024 McDonald 準則新增的第五個空間多發性部位是？',o:['視神經','胼胝體','基底核','小腦半球白質'],a:0,e:'五個部位為視神經、皮質或近皮質、腦室周圍、天幕下、脊髓。視神經可由 MRI、OCT 或 VEP 證實，前提是沒有更好的解釋。',s:'Montalban 2025 Panel 2–3'},
+ {lv:'basic',q:'2024 準則中，哪項 CSF 檢查可與寡株帶 (OCB) 互換？',o:['IgG index（IgG 合成指數）','kappa 游離輕鏈 (kFLC) index','CSF 與血清白蛋白商數 (Qalb) 比值','CSF 淋巴球比例與白血球總數'],a:1,e:'kFLC index 可取代 OCB。IgG index 的敏感度與準確度明顯較低，未列為同等工具。',s:'Montalban 2025 Panel 4 與 kFLC 段落'},
+ {lv:'basic',q:'下列哪一項符合臨床發作（CIS 或復發）的定義？',o:['持續 6 小時的單次麻木，不論有無發燒','感染發燒時舊症狀加重，超過 24 小時','持續 ≥ 24 小時，且無發燒或感染','持續數週的疲倦感與注意力下降，無客觀發現'],a:2,e:'需有症狀與客觀發現，急性或亞急性發生，持續至少 24 小時，且沒有發燒或感染。',s:'Thompson 2018 Panel 1'},
+ {lv:'basic',q:'2024 準則中，典型發作的病人至少要幾個部位有典型病灶，才不需要其他證據？',o:['2 個','3 個','5 個','4 個'],a:3,e:'典型表現或漸進惡化 ≥ 12 個月，且 ≥ 4 個部位時不需其他證據；2–3 個部位需要 CSF 陽性、CVS 或 DIT 任一項。',s:'Montalban 2025 Panel 3'},
+ {lv:'basic',q:'Select 6 中央靜脈徵象的陽性定義是？',o:['≥ 6 個白質病灶有中央靜脈','≥ 6 個皮質病灶在 T1 上顯影','≥ 6 個脊髓病灶位於周邊白質','≥ 6 個順磁性邊緣病灶同時存在'],a:0,e:'≥ 6 個白質病灶 CVS 陽性；病灶較少時需 CVS 陽性者佔多數。注意原文內文寫「少於 10 個」，流程圖附註寫「少於 6 個」，兩處不同。',s:'Montalban 2025 CVS 段落與流程圖附註'},
+ {lv:'basic',q:'2017 版原發進行型準則的三項條件中，下列何者不包括在內？',o:['腦部典型部位 ≥ 1 個 T2 病灶','脊髓或腦部顯影病灶','脊髓 ≥ 2 個 T2 病灶','CSF 特異性 OCB'],a:1,e:'需失能進展 ≥ 1 年，加上腦部 ≥ 1 個 T2、脊髓 ≥ 2 個 T2、CSF OCB 三項中兩項，顯影病灶不是其中一項。',s:'Thompson 2018 Panel 6'},
+ {lv:'basic',q:'AQP4-IgG 陽性時，下列哪項症狀屬於 NMOSD 的核心臨床特徵？',o:['三叉神經痛合併單側顏面麻木','單純頭痛且神經學檢查完全正常','極後區症候群（頑固打嗝或嘔吐）','手部靜止型震顫合併動作遲緩，對藥物有反應'],a:2,e:'六項核心特徵涉及視神經、脊髓、極後區、腦幹、間腦、大腦。AQP4-IgG 陽性加上至少一項，並排除其他診斷即可診斷。',s:'Wingerchuk 2015'},
+ {lv:'basic',q:'2024 準則強烈建議哪一族群在首次 CNS 脫髓鞘事件時，以細胞基礎法檢驗 MOG-IgG？',o:['所有疑似 MS 的成人','≥ 50 歲的病人','所有 RIS 病人','未滿 12 歲的兒童'],a:3,e:'未滿 12 歲強烈建議檢驗。≥ 12 歲僅在症狀不特異或懷疑 MOGAD 時建議；全面篩檢會增加偽陽性，MOGAD 準則明確不鼓勵。',s:'Montalban 2025 Panel 5；Banwell 2023'},
+ {lv:'basic',q:'COPOUSEP 試驗比較 MS 復發時的 methylprednisolone，結論是？',o:['口服 1000 mg/天 × 3 天不劣於靜脈','靜脈注射明顯優於口服，差距超過 15%','口服組的嚴重不良事件明顯多於靜脈組','兩組第 28 天的改善比例都不如安慰劑組'],a:0,e:'第 28 天改善比例為口服 81%、靜脈 80%（符合計畫分析），達不劣性。安全性相近，口服失眠較多。試驗收 18–55 歲 RRMS，仍要先判斷是否需要治療。',s:'Le Page 2015'},
+ {lv:'basic',q:'依 ECTRIMS/EAN 2018，活動性 RRMS 病人的治療建議是？',o:['先觀察到第二次失能惡化後再開始用藥','提供早期疾病修飾藥物，並與病人討論選藥','只用類固醇脈衝維持，暫不用疾病修飾藥物','一律先用同一種高效藥物，不需考慮個別差異'],a:1,e:'R3 為強建議，包括符合診斷準則的 CIS。R4 指出選藥取決於病人特性與共病、疾病嚴重度與活動度、藥物安全性、可近性。',s:'ECTRIMS/EAN 2018 R3–R4'},
+ {lv:'adv',q:'30 歲，典型脊髓炎 1 次，MRI 天幕下與脊髓有病灶、皆未顯影，kFLC index 升高，OCB 未驗。兩版判定？',o:['兩版都確診','2017 確診，2024 疑似','2017 疑似，2024 確診','兩版都只是 CIS'],a:2,e:'兩版都符合部位條件。2017 版的 CSF 條件只有 OCB，因此缺 DIT；2024 版 kFLC 可取代 OCB，2 個部位加 CSF 陽性即符合。',s:'Montalban 2025 Panel 3–4；Thompson 2018',check:{state:{age:30,attacks:1,lesions:1,typical:true,reg:['inf','sc'],kflc:true},expect:{2017:'疑似 MS',2024:'確診 MS'}}},
+ {lv:'adv',q:'35 歲典型脊髓炎，只有脊髓 1 個部位，OCB 陽性，無新病灶。依 2024 版，最合理的下一步是？',o:['已符合單一部位路徑，可直接告知確診','OCB 陽性可再多算一個部位，已符合 DIS','只能等第二次臨床發作，沒有其他方法','以磁化率序列評估 CVS 與 PRL'],a:3,e:'單一部位需（CSF 陽性或 DIT）且（Select 6 CVS 或 ≥ 1 個 PRL）。本例已有 CSF 陽性，還缺 CVS 或 PRL。',s:'Montalban 2025 Panel 3–4',check:{state:{age:35,attacks:1,lesions:1,typical:true,reg:['sc'],ocb:true},expect:{2024:'疑似 MS'}}},
+ {lv:'adv',q:'40 歲三叉神經痛，無典型發作或進展，MRI 有 4 個典型部位病灶，CSF 未驗、未評估 CVS、無 DIT。依 2024 版？',o:['尚不能診斷，需 DIT、CSF 陽性或 CVS 其中一項','已有 4 個部位，不需任何其他證據即可直接確診','症狀不特異，無論部位多少或其他結果都不能診斷','還需要至少 1 個 PRL，才能和部位數一起確診'],a:0,e:'「≥ 4 個部位免其他證據」只適用於典型表現或漸進惡化。陣發性或非特異症狀比照 RIS 流程，需 ≥ 2 個部位再加 DIT、CSF 陽性或 CVS。',s:'Montalban 2025 Panel 3、5 與流程圖',check:{state:{age:40,attacks:1,lesions:1,typical:false,reg:['pv','cjc','inf','sc']},expect:{2024:'疑似 MS'}}},
+ {lv:'adv',q:'33 歲 RIS，3 個部位病灶。OCB 陰性、CVS 陰性、無 DIT，但有 1 個 PRL。依 2024 版？',o:['PRL 特異性高，單獨 1 個即可確診 MS','仍為 RIS，PRL 不在此路徑的三項條件內','PRL 可替代 CSF 陽性，加上部位數就能確診','應改用典型發作路徑，1 部位＋PRL 就能確診'],a:1,e:'RIS 與非特異表現的流程圖只列 CSF 陽性、CVS 陽性、DIT。PRL 有助減少誤診，但不能單獨符合此路徑。',s:'Montalban 2025 Panel 5 與 RIS 流程圖',check:{state:{age:33,attacks:0,lesions:1,typical:false,reg:['pv','cjc','inf'],prl:true},expect:{2024:'放射學孤立症候群'}}},
+ {lv:'adv',q:'55 歲有高血壓，疑似 MS。下列何者不是 2024 版強烈建議的額外支持特徵？',o:['≥ 1 個脊髓病灶','CSF 陽性（OCB 或 kFLC）','≥ 1 個 PRL','CVS 陽性'],a:2,e:'建議的額外特徵是脊髓病灶、CSF 陽性、CVS 陽性。原文說明 PRL 在年長或有共病者未達成共識。',s:'Montalban 2025 Panel 6 與 ≥ 50 歲段落'},
+ {lv:'adv',q:'視神經炎病人，MRI 符合 2017 McDonald，CSF OCB 陽性，血清 MOG-IgG 低效價。最合理的判讀是？',o:['MOG-IgG 陽性即符合 MOGAD，不再考慮 MS','應視為同時有 MS 與 MOGAD 兩種疾病','應重複檢驗到抗體轉陰後才能做出診斷','較適合診斷為 MS，低效價不具鑑別力'],a:3,e:'MOGAD 準則以此為例，認為較適合診斷 MS。低效價也見於 MS、其他疾病與健康者，低陽性須有支持特徵且排除更好的解釋。',s:'Banwell 2023 Figure 3 附註'},
+ {lv:'adv',q:'52 歲漸進惡化 14 個月，腦部無典型病灶，脊髓 ≥ 2 個病灶，OCB 陰性，Select 6 CVS 陽性。兩版判定？',o:['2017 疑似，2024 確診','2017 確診，2024 疑似','兩版都確診','兩版都不符合'],a:0,e:'2017 版三項只符合脊髓 ≥ 2 這一項。2024 版進展 ≥ 12 個月且脊髓 ≥ 2 個病灶視為符合 DIS，再加 CVS 陽性即可；≥ 50 歲的額外特徵也已具備。',s:'Montalban 2025 Panel 3、5–6；Thompson 2018',check:{state:{age:52,course:'prog',prog1y:true,reg:['sc'],sc2:true,cvs:true},expect:{2017:'疑似 MS',2024:'確診 MS'}}},
+ {lv:'adv',q:'9 歲兒童首次表現為 ADEM，MRI 多處白質病灶。關於 MS 判定何者正確？',o:['符合 ≥ 2 個部位的 DIS，即可直接診斷 MS，不需驗 MOG-IgG','先驗 MOG-IgG；需再發作或 90 天後新 T2 才可套用','兒童 ADEM 要改用另一套獨立的兒童 MS 診斷準則判定','CVS 只要達 Select 6，就可在 ADEM 當下直接確診'],a:1,e:'ADEM 表現不能直接套用準則。未滿 12 歲強烈建議驗 MOG-IgG。未滿 18 歲的 CVS 僅在 ≥ 50% 病灶有此徵象時才考慮，不是直接確診。',s:'Montalban 2025 Panel 5 與兒童段落'},
+ {lv:'adv',q:'32 歲 MS 病人計畫懷孕，評估疾病再活化風險高。依 ECTRIMS/EAN 2018 應考慮？',o:['立即停用所有藥物，避孕到疾病完全無活動','換成 alemtuzumab，且輸注後不需間隔即可受孕','使用 interferon 或 glatiramer，到確認懷孕','換成 fingolimod 持續使用到分娩後再評估'],a:2,e:'R20（弱建議）：可考慮 interferon 或 glatiramer acetate 到確認懷孕。持續高度活動者一般建議延後懷孕 (R21)。此指引為 2018 年版，處方前應查最新仿單。',s:'ECTRIMS/EAN 2018 R20–R21'},
+ {lv:'adv',q:'42 歲符合 2017 McDonald 的 MRI 表現，後來 AQP4-IgG 陽性，並有視神經炎與長節段脊髓炎。外院已計畫用 natalizumab。應如何處理？',o:['已符合 McDonald，可按 MS 開始 natalizumab','先用 natalizumab 治療，再觀察抗體變化決定','改用 interferon-β 較安全，再追蹤 MRI 活動性','不按 MS 治療，改依 NMOSD 評估處置'],a:3,e:'AQP4-IgG 加上核心特徵符合 NMOSD，是 McDonald 所要求排除的更好解釋。Interferon-β、natalizumab、fingolimod 都可能使 NMO 惡化。',s:'Wingerchuk 2015',check:{state:{age:42,attacks:2,lesions:2,reg:['pv','cjc','sc'],flags:['aqp4','letm']},expect:{2017:'需先排除其他診斷',2024:'需先排除其他診斷'}}}
+];
+/*QUIZ-END*/
+
+/*MAP-START*/
+const MAP={
+ left:[
+  ['疑似表現',[['典型發作：≥ 24 小時、無發燒或感染','M17'],['漸進惡化 ≥ 12 個月','M24'],['RIS：意外發現、無症狀','M24'],['非特異症狀：陣發性症狀、癲癇等','M24']]],
+  ['五個部位 (DIS)',[['腦室周圍、皮質或近皮質、天幕下、脊髓、視神經','M24'],['≥ 2 個部位，有無症狀都算','M24'],['漸進惡化：脊髓 ≥ 2 個病灶可視為 DIS','M24'],['2017 不含視神經','M17']]],
+  ['2024 判定路徑',[['典型或漸進＋4–5 部位：免其他證據','M24'],['典型或漸進＋2–3 部位：CSF、CVS、DIT 任一','M24'],['典型或漸進＋1 部位：（CSF 或 DIT）＋（CVS 或 PRL）','M24'],['RIS 或非特異＋≥ 2 部位：CSF、CVS、DIT 任一；無 4 部位捷徑','M24']]],
+  ['生物標記',[['CSF 陽性：OCB 或 kFLC index，IgG index 不算','M24'],['CVS Select 6：≥ 6 個白質病灶','M24'],['PRL ≥ 1：需磁化率序列，用於單一部位路徑','M24'],['OCT 兩眼差：pRNFL ≥ 6 µm、GCIPL ≥ 4 µm；炎後 ≥ 6 個月最明顯','M24'],['VEP：各中心自訂切點','M24']]],
+  ['特殊族群',[['≥ 50 歲或血管危險因子：脊髓病灶、CSF 或 CVS；PRL 無共識','M24'],['未滿 18 歲 CVS：≥ 50% 病灶才考慮','M24'],['ADEM：第二次發作或 90 天後新 T2 才可套用','M24'],['未滿 12 歲強烈建議驗 MOG-IgG','M24']]],
+  ['先排除更好的解釋',[['NMOSD：AQP4-IgG＋≥ 1 核心特徵','N15'],['MOGAD：核心發作＋清楚陽性；低陽性需支持特徵','G23'],['不要全面篩 MOG-IgG；OCB 在 MOG-IgG 者可達 20%','G23'],['小血管病變、偏頭痛：腦室周圍病灶不特異','M24']]]
+ ],
+ right:[
+  ['急性復發',[['Methylprednisolone 1000 mg/天 × 3 天，口服不劣於靜脈','C15'],['口服失眠較多；先判斷是否需要治療','C15']]],
+  ['開始疾病修飾治療',[['活動性 RRMS 或符合準則的 CIS：提供早期治療','E18 R3'],['依病人共病、活動度、安全性、可近性共同選藥','E18 R4'],['有 MRI 異常但未符合 MS 的 CIS：interferon 或 GA','E18 R2'],['需在具監測能力的中心使用','E18 R1']]],
+  ['進行型 MS',[['PPMS：可考慮 ocrelizumab','E18 R8'],['活動性 SPMS：可考慮 ocrelizumab 或 cladribine','E18 R7']]],
+  ['監測反應',[['開始治療 6 個月內做參考 MRI，約 12 個月再比較','E18 R11'],['以新的或明確變大的 T2 病灶為主，顯影為輔','E18 R12'],['PML 高風險：每 3–6 個月 MRI','E18 R13']]],
+  ['換藥與停藥',[['Interferon 或 GA 仍有活動：換更有效的藥','E18 R14'],['停高效藥：考慮接另一高效藥，留意 natalizumab 反彈','E18 R16–17'],['長期穩定且無安全疑慮：考慮繼續','E18 R18']]],
+  ['懷孕計畫',[['再活化風險高：interferon 或 GA 到確認懷孕','E18 R20'],['持續高活動度：一般建議延後懷孕','E18 R21']]],
+  ['避免誤用',[['Interferon-β、natalizumab、fingolimod 可能使 NMO 惡化','N15'],['MS 為排除性診斷，應定期重新檢視','M24']]]
+ ]
+};
+/*MAP-END*/
+
+function runEngine(state,ver){
+  const keepS=S,keepV=VER;
+  S=caseState(state);VER=ver;
+  try{const r=evaluate();return {verdict:r.flag?'需先排除其他診斷':r.verdict,cls:r.flag?'stop':r.cls,pheno:r.pheno,sub:r.sub};}
+  finally{S=keepS;VER=keepV;}
+}
+function caseState(st){return {age:null,course:'rel',attacks:1,lesions:1,hist:false,typical:true,prog1y:false,sc2:false,sim:false,newles:false,ocb:false,kflc:false,cvs:false,prl:false,...st,reg:new Set(st.reg||[]),flags:new Set(st.flags||[])};}
+function loadCase(c,ver){S=caseState(c.state);VER=ver;$('#sample').hidden=true;render();showTab('dx');try{history.replaceState(null,'','#dx');}catch(e){}window.scrollTo(0,0);toast(`已帶入病例 ${c.id.slice(1)}（${ver} 版）`);}
+const vdCard=(c,ver)=>{const r=runEngine(c.state,ver);return `<div class="vd ${r.cls}"><div class="k">${ver} McDonald</div><div class="v">${esc(r.verdict)}</div><div class="how">${esc(r.pheno||'')}</div></div>`;};
+$('#case-list').innerHTML=CASES.map((c,i)=>`<article class="card" data-case="${c.id}">
+  <div class="case-head"><span class="case-no">病例 ${i+1}</span><h3>${esc(c.title)}</h3><span class="pill info">${esc(c.tag)}</span></div>
+  <p>${esc(c.stem)}</p>
+  <div class="chips">${c.data.map(d=>`<span>${esc(d)}</span>`).join('')}</div>
+  <p class="case-ask">${esc(c.ask)}</p>
+  <div class="row case-actions"><button class="btn primary" data-act="show" aria-expanded="false">看判讀</button><button class="btn" data-act="l17">以 2017 帶入工具</button><button class="btn" data-act="l24">以 2024 帶入工具</button></div>
+  <div class="ans" hidden>
+    <div class="verdicts">${vdCard(c,'2017')}${vdCard(c,'2024')}</div>
+    <span class="flabel">判讀</span><ul class="plain">${c.reason.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+    <div style="margin-top:10px"><span class="flabel">下一步</span><ul class="plain">${c.next.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+    ${c.pit?`<div class="alert warn" style="margin-top:10px"><strong>易錯點</strong><span>${esc(c.pit)}</span></div>`:''}
+    <p class="cite">出處：${esc(c.cite)}</p>
+  </div>
+</article>`).join('');
+$('#case-list').addEventListener('click',e=>{
+  const b=e.target.closest('button[data-act]');if(!b)return;
+  const card=b.closest('[data-case]'),c=CASES.find(x=>x.id===card.dataset.case);
+  if(b.dataset.act==='show'){const a=card.querySelector('.ans');a.hidden=!a.hidden;b.textContent=a.hidden?'看判讀':'收合判讀';b.setAttribute('aria-expanded',String(!a.hidden));}
+  else loadCase(c,b.dataset.act==='l17'?'2017':'2024');
+});
+
+let quizAns={},quizLv='all';
+function renderQuiz(){
+  const L='ABCD';
+  $('#quiz-list').innerHTML=QUIZ.map((x,i)=>{
+    if(quizLv!=='all'&&x.lv!==quizLv)return '';
+    const got=quizAns[i],done=got!=null;
+    return `<article class="card qitem"><span class="qno">第 ${i+1} 題</span><span class="pill ${x.lv==='adv'?'warn':'info'}">${x.lv==='adv'?'高階':'基礎'}</span>
+      <p class="stem">${esc(x.q)}</p>
+      <div class="opts">${x.o.map((t,j)=>`<button class="opt ${done&&j===x.a?'right':''} ${done&&j===got&&j!==x.a?'wrong':''}" data-q="${i}" data-o="${j}" ${done?'disabled':''}><b>${L[j]}</b><span>${esc(t)}</span></button>`).join('')}</div>
+      ${done?`<div class="explain"><strong class="${got===x.a?'ok':'bad'}">${got===x.a?'答對':'答錯，正確答案 '+L[x.a]}</strong>。${esc(x.e)}<div class="cite">出處：${esc(x.s)}</div></div>`:''}
+    </article>`;
+  }).join('');
+  const sc=lv=>{const q=QUIZ.map((x,i)=>[x,i]).filter(([x])=>lv==='all'||x.lv===lv),d=q.filter(([,i])=>quizAns[i]!=null);return [d.filter(([x,i])=>quizAns[i]===x.a).length,d.length,q.length];};
+  const [r,d,n]=sc('all'),[br,bd]=sc('basic'),[ar,ad]=sc('adv');
+  $('#quiz-score').innerHTML=`已答 <b>${d}/${n}</b>，答對 <b>${r}</b>｜基礎 <b>${br}/${bd}</b>｜高階 <b>${ar}/${ad}</b>`;
+}
+$('#quiz-list').addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b||b.disabled)return;const i=+b.dataset.q;quizAns[i]=+b.dataset.o;const y=window.scrollY;renderQuiz();window.scrollTo(0,y);});
+segBind('#quiz-filter',v=>{quizLv=v;renderQuiz();});
+$('#quiz-reset').addEventListener('click',()=>{quizAns={};renderQuiz();});
+renderQuiz();
+
+function mapSide(list,side,title){return `<div class="mm-side ${side}"><div class="mm-title">${title}</div>${list.map(([t,lv],i)=>`<div class="mm-node" data-side="${side}"><button class="mm-btn" aria-expanded="false"><span>${esc(t)}</span><i>＋</i></button><ul hidden>${lv.map(([x,s])=>`<li>${esc(x)}<small>${esc(s)}</small></li>`).join('')}</ul></div>`).join('')}</div>`;}
+$('#mm').innerHTML=`<svg class="links" aria-hidden="true"></svg>${mapSide(MAP.left,'left','診斷')}<div class="mm-root">多發性硬化症</div>${mapSide(MAP.right,'right','處置')}`;
+function drawMap(){
+  const mm=$('#mm'),svg=mm.querySelector('svg.links');if(!mm.offsetParent||getComputedStyle(svg).display==='none')return;
+  const o=mm.getBoundingClientRect(),rt=mm.querySelector('.mm-root').getBoundingClientRect(),cy=rt.top+rt.height/2-o.top;
+  svg.setAttribute('viewBox',`0 0 ${o.width} ${o.height}`);
+  svg.innerHTML=[...mm.querySelectorAll('.mm-node')].map(n=>{
+    const b=n.querySelector('.mm-btn').getBoundingClientRect(),y=b.top+b.height/2-o.top,left=n.dataset.side==='left';
+    const x1=left?rt.left-o.left:rt.right-o.left,x2=left?b.right-o.left:b.left-o.left,mx=(x1+x2)/2;
+    return `<path class="${left?'l':'r'}" d="M${x1} ${cy} C${mx} ${cy} ${mx} ${y} ${x2} ${y}"/>`;
+  }).join('');
+}
+function setNode(n,open){n.querySelector('ul').hidden=!open;const b=n.querySelector('.mm-btn');b.setAttribute('aria-expanded',String(open));b.querySelector('i').textContent=open?'－':'＋';}
+$('#mm').addEventListener('click',e=>{const b=e.target.closest('.mm-btn');if(!b)return;const n=b.closest('.mm-node');setNode(n,n.querySelector('ul').hidden);drawMap();});
+$('#map-open').addEventListener('click',()=>{$$('.mm-node').forEach(n=>setNode(n,true));drawMap();});
+$('#map-close').addEventListener('click',()=>{$$('.mm-node').forEach(n=>setNode(n,false));drawMap();});
+window.addEventListener('resize',drawMap);
 
 render();
 let start='dx';const h=(location.hash||'').slice(1);

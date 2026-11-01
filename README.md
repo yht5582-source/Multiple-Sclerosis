@@ -15,11 +15,21 @@
 2. **鑑別診斷與紅旗**：MS、NMOSD、MOGAD 比較與建議檢查。
    - **2024 版模式**：五個部位（加入視神經，可由 MRI、OCT、VEP 證實）、CSF 陽性（OCB 或 kFLC index）、中央靜脈徵象 (Select 6)、順磁性邊緣病灶 (PRL)；依部位數（4–5／2–3／1）判定所需附加證據；支援非特異症狀與放射學孤立症候群路徑，以及 ≥ 50 歲的額外支持證據提醒。
 3. **準則對照與文獻**：2017 版變更重點、2024 修訂版摘要。
+4. **示範病例**（`#cases`）：8 例虛構教學病例，2017 與 2024 判定由頁面引擎即時算出，可帶入判定工具。
+5. **考題**（`#quiz`）：基礎 10 題＋高階 10 題，答案 A–D 各 5 題，順序固定，不儲存作答紀錄。
+6. **心智圖**（`#map`）：診斷與處置雙側分支，預設收合，葉節點標示出處。
+
+## 測試
+
+內容在 `index.html` 的 `/*ENGINE-START*/`、`/*CASES-START*/`、`/*QUIZ-START*/`、`/*MAP-START*/` 區塊。`node tests.cjs` 會用頁面引擎核對病例與情境題答案、題數與答案分布，並檢查正解不會因選項最長而被猜中。
 
 ## 主要依據
 
 - Thompson AJ, et al. Diagnosis of multiple sclerosis: 2017 revisions of the McDonald criteria. *Lancet Neurol* 2018;17:162–173. doi:10.1016/S1474-4422(17)30470-2
 - Montalban X, et al. Diagnosis of multiple sclerosis: 2024 revisions of the McDonald criteria. *Lancet Neurol* 2025;24:850–865. doi:10.1016/S1474-4422(25)00270-4
+- Wingerchuk DM, et al. *Neurology* 2015;85:177–189（NMOSD）；Banwell B, et al. *Lancet Neurol* 2023;22:268–282（MOGAD）
+- Montalban X, et al. ECTRIMS/EAN guideline. *Mult Scler* 2018;24:96–120. doi:10.1177/1352458517751049
+- Le Page E, et al. COPOUSEP. *Lancet* 2015;386:974–981. doi:10.1016/S0140-6736(15)61137-0
 
 ## 免責聲明
 
