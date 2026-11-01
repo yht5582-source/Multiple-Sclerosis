@@ -320,7 +320,7 @@ input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(-
       </table></div>
       <div class="grid2" style="margin-top:14px">
         <div><span class="flabel">五個部位</span><p class="small">腦室周圍、皮質或近皮質、天幕下、脊髓、視神經。視神經可由眼窩 MRI、OCT（兩眼 pRNFL 差 ≥ 6 µm 或 GCIPL 差 ≥ 4 µm）或 VEP 證實。</p></div>
-        <div><span class="flabel">≥ 50 歲或有血管危險因子、偏頭痛</span><p class="small">建議另有脊髓病灶、CSF 陽性，或中央靜脈徵象、PRL 等支持證據，以降低誤診。</p></div>
+        <div><span class="flabel">≥ 50 歲或有血管危險因子、偏頭痛</span><p class="small">強烈建議另有脊髓病灶、CSF 陽性或中央靜脈徵象等支持證據，以降低誤診；PRL 在此族群未達共識。</p></div>
       </div>
     </div>
   </section>
@@ -522,7 +522,7 @@ function evaluate(){
     if(r.dis&&r.dit){r.verdict='確診 MS';r.pheno='復發緩解型 (RRMS)';r.cls='go';r.sub=ocbDIT&&!mriDIT?'符合 2017 McDonald 準則（以 OCB 取代時間多發性）。':'符合 2017 McDonald 準則。';}
     else if(r.dis||r.dit){r.verdict='疑似 MS';r.pheno='臨床孤立症候群，部分符合準則';r.cls='warn';r.sub=`已符合${r.dis?'空間':'時間'}多發性，尚缺${r.dis?'時間':'空間'}多發性。`;
       r.next=[!r.dit&&'3–6 個月後追蹤腦與脊髓 MRI（含顯影），尋找新病灶',!r.dit&&!S.ocb&&r.dis&&'腰椎穿刺檢驗 CSF 寡株帶（可取代時間多發性）',!r.dis&&'安排全脊髓 MRI，尋找其他部位病灶','再次臨床發作時重新評估'].filter(Boolean);}
-    else{r.verdict='臨床孤立症候群 (CIS)';r.pheno='CIS';r.cls='info';r.sub='單次發作，空間與時間多發性都尚未符合。';r.next=['3–6 個月後追蹤腦與全脊髓 MRI；MRI 已有典型病灶者轉為 MS 的風險較高','檢驗 AQP4-IgG、MOG-IgG 排除其他脫髓鞘疾病','再次臨床發作時重新評估'];}
+    else{r.verdict='臨床孤立症候群 (CIS)';r.pheno='CIS';r.cls='info';r.sub='單次發作，空間與時間多發性都尚未符合。';r.next=['3–6 個月後追蹤腦與全脊髓 MRI；MRI 已有典型病灶者轉為 MS 的風險較高','檢驗 AQP4-IgG；未滿 12 歲，或症狀不特異、懷疑 MOGAD 時加驗 MOG-IgG（不建議全面篩檢）','再次臨床發作時重新評估'];}
   }
   if(r.cls==='go')r.next=['確認已檢驗 AQP4-IgG（必要時 MOG-IgG）','建立腦與脊髓 MRI 基準影像','討論疾病修飾治療 (DMT) 選擇','記錄 EDSS 做為基準'];
   if(S.flags.size){r.flag=true;}
@@ -579,9 +579,9 @@ function evaluate24(){
   }
   if(r.cls==='go')r.next=['確認已檢驗 AQP4-IgG（必要時 MOG-IgG）','建立腦與脊髓 MRI 基準影像','討論疾病修飾治療 (DMT) 選擇','記錄 EDSS 做為基準'];
   if(S.age!=null&&S.age>=50){
-    const sup=S.reg.has('sc')||CSF||CVS||PRL;
-    Y(sup,'≥ 50 歲：有脊髓病灶、CSF 陽性或中央靜脈徵象／PRL 支持');
-    if(!sup){r.old=true;r.next=['≥ 50 歲：建議取得脊髓病灶、CSF 陽性或中央靜脈徵象／PRL 等支持證據，並排除小血管病變',...r.next];}
+    const sup=S.reg.has('sc')||CSF||CVS;
+    Y(sup,'≥ 50 歲：有脊髓病灶、CSF 陽性或中央靜脈徵象支持');
+    if(!sup){r.old=true;r.next=['≥ 50 歲：強烈建議取得脊髓病灶、CSF 陽性或中央靜脈徵象等支持證據（PRL 在此族群未達共識），並排除小血管病變',...r.next];}
   }
   if(S.flags.size)r.flag=true;
   return r;
@@ -604,7 +604,7 @@ function render(){
   $('#rel-block').hidden=prog;$('#prog-block').hidden=!prog;$('#sc2-q').hidden=!prog;
   $('#les-q').classList.toggle('dim',S.attacks===0);$('#typ-q').classList.toggle('dim',v24?S.attacks===0:S.attacks!==1);
   $('#hist-q').classList.toggle('dim',!(S.attacks>=2&&S.lesions===1));
-  $('#l-sim').classList.toggle('dim',prog);$('#l-new').classList.toggle('dim',prog);
+  $('#l-sim').classList.toggle('dim',prog&&!v24);$('#l-new').classList.toggle('dim',prog&&!v24);
   const r=evaluate();
   const col={go:'go',warn:'warn',info:'info',stop:'stop'}[r.cls];
   const v=$('#v');v.textContent=r.flag?'需先排除其他診斷':r.verdict;v.style.color=`var(--${r.flag?'stop':col})`;

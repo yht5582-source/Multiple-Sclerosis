@@ -6,11 +6,29 @@ const ctx=vm.createContext({});
 vm.runInContext(`let S,VER;${block('ENGINE')}${block('CASES')}${block('QUIZ')}${block('MAP')}
 const caseState=st=>({age:null,course:'rel',attacks:1,lesions:1,hist:false,typical:true,prog1y:false,sc2:false,sim:false,newles:false,ocb:false,kflc:false,cvs:false,prl:false,...st,reg:new Set(st.reg||[]),flags:new Set(st.flags||[])});
 globalThis.run=(st,ver)=>{S=caseState(st);VER=ver;const r=evaluate();return r.flag?'需先排除其他診斷':r.verdict;};
+globalThis.raw=(st,ver)=>{S=caseState(st);VER=ver;return evaluate();};
 globalThis.D={CASES,QUIZ,MAP};`,ctx);
-const {run,D}=ctx;
+const {run,raw,D}=ctx;
 let pass=0,fail=0;
 const ok=(c,m)=>{if(c)pass++;else{fail++;console.log('FAIL',m);}};
 const REG=['pv','cjc','inf','sc','on'],FL=['aqp4','mog','letm','ap','on','sys','old'];
+
+// Montalban 2025 Panel 6: >=50 y support = cord lesion, CSF or CVS; PRL has no consensus.
+const old={age:55,attacks:1,lesions:1,typical:true,reg:['pv','cjc'],sim:true};
+ok(raw({...old,prl:true},'2024').old===true,'>=50 y: PRL alone is not support');
+ok(raw(old,'2024').old===true,'>=50 y: no support flagged');
+ok(!raw({...old,cvs:true},'2024').old,'>=50 y: CVS is support');
+ok(!raw({...old,kflc:true},'2024').old,'>=50 y: CSF is support');
+ok(!raw({...old,reg:['pv','sc']},'2024').old,'>=50 y: cord lesion is support');
+// 2024 progressive course counts MRI DIT; the 2017 PPMS rule does not use it.
+const pg={age:45,course:'prog',prog1y:true,reg:['pv','cjc']};
+ok(run(pg,'2024')==='疑似 MS','2024 progressive, 2 sites, no extra evidence');
+ok(run({...pg,newles:true},'2024')==='確診 MS','2024 progressive, new T2 counts as DIT');
+ok(run({...pg,sim:true},'2024')==='確診 MS','2024 progressive, simultaneous lesions count as DIT');
+ok(html.includes("toggle('dim',prog&&!v24)"),'DIT checkboxes usable in 2024 progressive mode');
+// Banwell 2023 / Montalban 2025 Panel 5: MOG-IgG is not for everyone.
+const cis=raw({age:30,attacks:1,lesions:1,typical:true,reg:['pv']},'2017');
+ok(cis.verdict==='臨床孤立症候群 (CIS)'&&cis.next.some(x=>x.includes('不建議全面篩檢')),'CIS next step does not test MOG-IgG universally');
 
 ok(D.CASES.length===8,'8 cases');
 ok(new Set(D.CASES.map(c=>c.id)).size===8,'case ids unique');
